@@ -209,6 +209,17 @@ npm run dev -- --host 127.0.0.1 --port 5173
 ```
 - Open `http://127.0.0.1:5173/` in your browser.
 
+### Deploy as Vercel services
+
+The root `vercel.json` deploys the Vite app as `app` and FastAPI as `backend` on the same Vercel
+project and domain. Requests to `/api/*` are routed to FastAPI; all other paths are routed to the
+frontend. In production, the frontend calls `/api/*` on the current domain. Do not set
+`VITE_API_BASE_URL` in Vercel unless intentionally overriding this same-domain routing.
+
+Configure backend secrets and database settings as environment variables for the `backend` service.
+The current backend defaults to SQLite, which is not durable across Vercel function instances or
+deployments; use a managed database before relying on production data persistence.
+
 ---
 
 ## 🧪 Automated Testing
